@@ -113,7 +113,9 @@ console.log(foo);   // ReferenceError: foo is not defined
 
 ### 2. 재할당 금지
 
-var, let 키워드로 선언한 변수는 재할당이 자유로우나 const 키워드로 선언한 변수는 재할당이 금지된다.
+var, let 키워드로 선언한 변수는 재할당이 자유로우나 const 키워드로 선언한 변수는 재할당이 금지된다.  
+
+</br>
 
 ### 3. 상수
 
