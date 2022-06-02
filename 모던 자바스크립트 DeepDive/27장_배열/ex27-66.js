@@ -5,4 +5,4 @@ function removeAll(array, item) {
     return array.filter(v => v !== item);
 }
 
-console.log(removeAll(arr, 2)); // 
+console.log(removeAll(arr, 2)); // [ 1, 3, 1 ]

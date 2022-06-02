@@ -14,5 +14,7 @@ arr.slice(-2);      // -> [2, 3]
 // 인수를 모두 생략하면 원본 배열의 복사본을 생성하여 반환
 const copy = arr.slice()
 console.log(copy);  // [1, 2, 3]
+// copy와 arr는 참조값이 다른 별개의 객체이다
 console.log(copy === arr);  // false
-console.log(copy[0] === arr[0]);
+// 배열 요소의참조값이 같다. 즉, 얕은 복사되었다
+console.log(copy[0] === arr[0]);    //true

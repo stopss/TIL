@@ -10,4 +10,4 @@ console.log(arr);   // [1, 2, 3, 4]
 // arr.push(5)과 동일한 처리
 // 이 방법이 push 메서드보다 빠르다
 arr[arr.length] = 5;
-console.log(arr); // 
+console.log(arr); // [ 1, 2, 3, 4, 5 ]
