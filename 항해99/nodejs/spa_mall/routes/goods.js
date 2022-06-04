@@ -13,8 +13,6 @@ router.get("/", (req, res) => {
 router.get("/goods", async (req, res) => {
   const { category } = req.query;
 
-  console.log("category?", category)
-
   const goods = await Goods.find({ category });
   res.json({
     goods
@@ -26,10 +24,30 @@ router.get("/goods", async (req, res) => {
 router.get("/goods/:goodsId", async (req, res) => {
   const { goodsId } = req.params;
 
-  const [detail] = await Goods.find({ goodsId: Number(goodsId) });
+  const [goods] = await Goods.find({ goodsId: Number(goodsId) });
 
   res.json({
-    detail
+    goods
+  });
+});
+
+// 장바구니 목록 조회 api
+router.get("/goods/cart", async (req, res) => {
+
+  const carts = await Cart.find();
+  const goodsIds = carts.map((cart) => cart.goodsId);
+
+  const goods = await Goods.find({ goodsId: goodsIds });
+
+  const result = carts.map((cart) => {
+    return {
+      quantity: cart.quantity,
+      goods: goods.find((item) => item.goodsId === cart.goodsId) 
+    };
+  });
+
+  res.send({
+    cart: result,
   });
 });
 
@@ -61,20 +79,20 @@ router.delete('/goods/:goodsId/cart', async(req, res) => {
   res.json({ success: true })
 });
 
-//
-router.put('/goods/:goodsId/cart', async(req, res) => {
+// 장바구니 수량 수정 api
+router.put("/goods/:goodsId/cart", async (req, res) => {
   const { goodsId } = req.params;
   const { quantity } = req.body;
 
   const existsCarts = await Cart.find({ goodsId: Number(goodsId) });
   if (!existsCarts.length) {
-    return res.status(400).json({ success: false, erroMessage: "이미 장바구니에 들어있는 상품입니다"});
+    await Cart.create({ goodsId: Number(goodsId), quantity });
+  } else {
+    await Cart.updateOne({ goodsId: Number(goodsId) }, { $set: { quantity } });
   }
 
-  await Cart.updateOne({ goodsId: Number(goodsId )}, {$set: { quantity }});
-
   res.json({ success: true });
-})
+});
 
 
 // 상품 추가 API
@@ -90,6 +108,8 @@ router.post('/goods', async (req, res) => {
 
   res.json({ goods: createdGoods });
 });
+
+
 
 module.exports = router;
 

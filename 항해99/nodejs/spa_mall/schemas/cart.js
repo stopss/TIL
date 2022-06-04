@@ -8,8 +8,8 @@ const schema = new mongoose.Schema({
     },
     quantity: {
         type: Number,
-        required: true,
-    },
+        required: true
+    }
 });
 
 module.exports = mongoose.model("Cart", schema);
