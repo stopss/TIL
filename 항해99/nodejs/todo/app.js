@@ -21,7 +21,6 @@ router.get("/", (req, res) => {
 router.get("/todos", async (req, res) => {
   try{
     const todos = await Todo.find().sort("-order").exec();
-
     res.send({ todos });
   } catch(error) {
     console.log(error);
@@ -107,6 +106,6 @@ router.delete("/todos/:todoId", async (req, res) => {
 app.use("/api", bodyParser.json(), router);
 app.use(express.static("./assets"));
 
-app.listen(3000, () => {
+app.listen(8080, () => {
   console.log("서버가 켜졌어요!");
 });
