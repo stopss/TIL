@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1"
+  },
+  "name": "hello-jwt",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nomdmon app"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
