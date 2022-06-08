@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
-const User = require("./models/user");
+const { User } = require("./models");
 const Goods = require("./models/goods");
 const Cart = require("./models/cart");
 const authMiddleware = require("./middlewares/auth-middleware");
@@ -38,8 +39,11 @@ router.post("/users", async (req, res) => {
             return;
         }
 
-        const existUsers = await User.find({
-            $or: [{ email }, { nickname }],
+        const existUsers = await User.findAll({
+          whehre: {
+            [Op.or]: [{ nickname }, { email }],
+
+          }
         });
         if(existUsers.length) {
             res.status(400).send({
@@ -48,8 +52,7 @@ router.post("/users", async (req, res) => {
             return;
         }
 
-        const user = new User({ email, nickname, password });
-        await user.save();
+        await User.create({ email, nickname, password });
 
         res.status(201).send({});
     } catch(error) {
@@ -72,7 +75,7 @@ router.post("/auth", async (req, res) => {
     try {
         const { email, password } = await postAuthSchema.validateAsync(req.body);
 
-        const user = await User.findOne({ email, password }).exec();
+        const user = await User.findOne({ where: { email, password } });
 
         if (!user) {
             res.status(400).send({
@@ -109,10 +112,7 @@ router.get("/users/me", authMiddleware, async (req, res) => {
         // } 
         // 이렇게 들어있는데 이 중에 password는 보낼 필요가 없기 때문에(암호화 되어있어도 보내면 안된다.)
         // email과 nickname만 보내주기 위해서 아래와 같이 코드를 구현하였다.
-        user: {
-            email: user.email,
-            nickname: user.nickname,
-        },
+        user,
     });
 })
 

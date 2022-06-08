@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const { User } = require("../models");
 
 module.exports = (req, res, next)  => {
     const { authorization } = req.headers;
@@ -18,7 +18,7 @@ module.exports = (req, res, next)  => {
         // 반환값 프로미스이다.
         // await 를 안쓴 이유는 async를 사용하지 않았기 때문에
         // 프로미스 .then을 사용한다.
-        User.findById(userId).exec().then((user) => {
+        User.findByPk(userId).then((user) => {
             // user의 값이 있는지 확인해야 한다.
             // 하지만 res.locals.user = user; 를 사용한다면 db에서 사용자 정보를 가져오기 않게 할 수 있다.
             // express가 제공하는 안전한 변수에 담아두고 언제나 꺼내서 사용할 수 있다.
