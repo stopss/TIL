@@ -1,4 +1,4 @@
-## API
+# API
 ### **API(Application Programming Interface, 응용 프로그래밍 인터페이스)**?
 : 응용 프로그램에서 사용할 수 있도록 운영 체제나 프로그래밍 언어가 제공하는 기능을 제어할 수 있게 만든 인터페이스를 뜻합니다.
 쉽게 말해,
@@ -6,7 +6,7 @@
 </br></br>
 
 
-## REST
+# REST
 ### **REST(Representational State Transfer)?**
 : 자원을 이름으로 구분하여 해당 자원의 상태를 주고 받는 모든 것을 의미
 1. HTTP URL를 통해 자원을 명시하고
@@ -28,7 +28,7 @@
 * Uniform Interface (인터페이스 일관성)   
 </br></br>
 
-## REST API
+# REST API
 ### **REST API란**
 : REST의 원리를 따르는 API를 의미합니다.  
 </br>
